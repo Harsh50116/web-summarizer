@@ -75,8 +75,34 @@ function getPageContent() {
 
 
 async function generateSummary(content) {
-    const previewText = content.slice(0, 500);
-    return `${previewText}...
+    const sentences = content.match(/[^.!?]+[.!?]+/g) || [];
 
-    [Full text length: ${content.length} characters]`;
+    //Calculate sentences scoees based on wod frequency
+    const wordFrequency = [];
+    sentences.forEach(sentences => {
+        const words = sentences.toLowerCase().match(/\b\w+\b/g) || [];
+        words.forEach(word => {
+            wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+        });
+    });
+
+    //Score each sentence
+    const sentenceScores = sentences.map(sentence => {
+        const words = sentence.toLowerCase().match(/\b\w+\b/g) || [];
+        const score = words.reduce((sum, word) => sum + (wordFrequency[word] || 0), 0);
+        return { sentence, score: score / words.length};
+    });
+
+
+    //Select top sentences (about 30% of original content)
+    const numSentences = Math.max(3, Math.ceil(sentences.length * 0.3));
+    const topSentences = sentenceScores
+        .sort((a, b) => b.score - a.score)
+        .slice(0, numSentences)
+        .sort((a, b) => sentences.indexOf(a.sentence) -  sentences.indexOf(b.sentence))
+        .map(item => item.sentence);
+
+    const summary = topSentences.join(" ");
+
+    return `Summary:\n\n${summary}\n\n[Original length: ${content.length} characters | Summarized to: ${summary.length} characters]`; 
 }
