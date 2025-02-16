@@ -23,8 +23,5 @@ Thumbs.db
 .env.local
 .env.*.local
 
-# Config files with sensitive data
 # in .gitignore
-../utils/config.js
-./utils/config.js
 utils/config.js
