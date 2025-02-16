@@ -2,22 +2,30 @@
     "manifest_version": 3,
     "name": "Page Summarizer",
     "version": "1.0.0",
-    "description": "A chomre extension that summarizes webpage content",
-
+    "description": "A Chrome extension that summarizes webpage content using Gemini AI",
+    
     "icons": {
-        "10": "images/test.png",
-        "40": "images/test.png",
-        "128": "images/test.png" 
+        "16": "images/test.png",
+        "48": "images/test.png",
+        "128": "images/test.png"
     },
 
-    "permissions": ["activeTab", "scripting", "storage"],
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"    
+    ],
+
+    "host_permissions": [
+         "https://*.googleapis.com/"
+    ],
 
     "action": {
         "default_popup": "popup/popup.html",
         "default_icon": {
-            "10": "images/test.png",
-            "40": "images/test.png",
-            "128": "images/test.png"            
+            "16": "images/test.png",
+            "48": "images/test.png",
+            "128": "images/test.png"
         }
     },
 
@@ -31,5 +39,9 @@
 
     "background": {
         "service_worker": "scripts/background.js"
+    },
+
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
     }
 }
