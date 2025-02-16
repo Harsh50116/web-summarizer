@@ -1,5 +1,5 @@
 const CONFIG = {
-    API_KEY: 'AIzaSyBt2VNLUignvRZGu2MRt6MwsDNg0rPxwIs',
+    API_KEY: 'test',
     API_URL: 'https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent',
     SUMMARY_PROMPT: `Please provide a concise summary of the following text in this format:
 
