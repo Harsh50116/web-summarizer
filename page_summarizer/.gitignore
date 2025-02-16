@@ -25,4 +25,6 @@ Thumbs.db
 
 # Config files with sensitive data
 # in .gitignore
+../utils/config.js
+./utils/config.js
 utils/config.js
